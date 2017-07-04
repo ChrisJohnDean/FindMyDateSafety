@@ -57,7 +57,7 @@
             </objects>
             <point key="canvasLocation" x="-2479" y="-2014"/>
         </scene>
-        <!--User Table View Controller-->
+        <!--Go Dating-->
         <scene sceneID="Jx9-8Z-skp">
             <objects>
                 <tableViewController id="B9v-3H-Xu1" customClass="UserTableViewController" customModule="FindMyDate" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,15 +70,16 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nw0-8z-LQj" id="jB4-Lf-bXB">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-SD-zsm">
-                                            <rect key="frame" x="229" y="0.0" width="91" height="91"/>
+                                            <rect key="frame" x="229" y="0.0" width="91" height="90.5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.73039825167751249" blue="0.71974884606193534" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="imageHolder" destination="aSi-SD-zsm" id="6FF-9i-Uyl"/>
                                 </connections>
@@ -89,7 +90,7 @@
                             <outlet property="delegate" destination="B9v-3H-Xu1" id="cfe-lk-hMz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Eqh-Hg-B7X"/>
+                    <navigationItem key="navigationItem" title="Go Dating" id="Eqh-Hg-B7X"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZnV-6A-ub7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

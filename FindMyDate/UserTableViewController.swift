@@ -18,8 +18,7 @@ class UserTableViewController: UITableViewController {
     var user: FirebaseUser!
     let storageRef = Storage.storage().reference(forURL: "gs://findmydate-1c6f4.appspot.com/")
     var picture:[UIImage] = []
-    //var profilePicture: UIImage!
-    
+    var cart : Dictionary<String, UIImage> = Dictionary<String, UIImage>()
     
     var currentUsers: [String] = []
     
@@ -80,15 +79,12 @@ class UserTableViewController: UITableViewController {
             
             guard let displayName = snapValue?["name"] as? String else {return}
             self.currentUsers.append(displayName)
+            
 //            let row = self.currentUsers.count - 1
 //            let indexPath = IndexPath(row: row, section: 0)
 //            self.tableView.insertRows(at: [indexPath], with: .top)
             
-            print(displayName)
-        })
             
-        usersRef.observe(.childAdded, with: { snap in
-            let snapValue = snap.value as? NSDictionary
             
             guard let uid = snapValue?["uid"] as? String else {return}
             let profilePicRef = self.storageRef.child(uid + "/profile_pic.jpg")
@@ -97,18 +93,48 @@ class UserTableViewController: UITableViewController {
                 if error != nil {
                     print("an error occurred when downloading profile picture from firebase storage")
                 } else {
-
+                    
                     let image = UIImage(data: data!)
-                    self.picture.append(image!)
+                    //self.picture.append(image!)
+                    self.cart[displayName] = image!
+                    print(self.cart.count)
                     print(self.picture.count)
                     print(self.currentUsers.count)
-                    let row = self.picture.count - 1
+                    let row = self.cart.count - 1
                     let indexPath = IndexPath(row: row, section: 0)
                     self.tableView.insertRows(at: [indexPath], with: .top)
-
+                    
                     self.tableView.reloadData()
                 }
             }
+
+            
+            
+            print(displayName)
+        })
+            
+        usersRef.observe(.childAdded, with: { snap in
+//            let snapValue = snap.value as? NSDictionary
+//            
+//            guard let uid = snapValue?["uid"] as? String else {return}
+//            let profilePicRef = self.storageRef.child(uid + "/profile_pic.jpg")
+//            // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+//            profilePicRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//                if error != nil {
+//                    print("an error occurred when downloading profile picture from firebase storage")
+//                } else {
+//
+//                    let image = UIImage(data: data!)
+//                    self.picture.append(image!)
+//                    print(self.picture.count)
+//                    print(self.currentUsers.count)
+//                    let row = self.picture.count - 1
+//                    let indexPath = IndexPath(row: row, section: 0)
+//                    self.tableView.insertRows(at: [indexPath], with: .top)
+//
+//                    self.tableView.reloadData()
+//                }
+//            }
         })
             
         
@@ -142,19 +168,24 @@ class UserTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return picture.count
+        return cart.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: userCell, for: indexPath) as! UserTableViewCell
-        let userName = currentUsers[indexPath.row]
-        cell.textLabel?.text = userName
+        //let userName = currentUsers[indexPath.row]
+        
+        
+        let userName2 = Array(cart.keys)[indexPath.row]
+        
+        cell.textLabel?.text = userName2
         cell.reloadInputViews()
         cell.setNeedsLayout()
         
-        let profilePic = picture[indexPath.row]
-        cell.imageHolder.image = profilePic
-        //cell.contentView.bringSubviewToFront(cell.downloadButton)
+        let profilePic2 = cart[userName2]
+        
+        //let profilePic = picture[indexPath.row]
+        cell.imageHolder.image = profilePic2
         cell.contentView.bringSubview(toFront: cell.imageHolder)
         return cell
     }
