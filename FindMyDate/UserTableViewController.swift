@@ -19,6 +19,7 @@ class UserTableViewController: UITableViewController {
     let storageRef = Storage.storage().reference(forURL: "gs://findmydate-1c6f4.appspot.com/")
     var picture:[UIImage] = []
     var cart : Dictionary<String, UIImage> = Dictionary<String, UIImage>()
+    //var userName: String!
     
     var currentUsers: [String] = []
     
@@ -79,13 +80,7 @@ class UserTableViewController: UITableViewController {
             
             guard let displayName = snapValue?["name"] as? String else {return}
             self.currentUsers.append(displayName)
-            
-//            let row = self.currentUsers.count - 1
-//            let indexPath = IndexPath(row: row, section: 0)
-//            self.tableView.insertRows(at: [indexPath], with: .top)
-            
-            
-            
+
             guard let uid = snapValue?["uid"] as? String else {return}
             let profilePicRef = self.storageRef.child(uid + "/profile_pic.jpg")
             // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -97,9 +92,12 @@ class UserTableViewController: UITableViewController {
                     let image = UIImage(data: data!)
                     //self.picture.append(image!)
                     self.cart[displayName] = image!
+                    
+                    // tests counts of collections
                     print(self.cart.count)
-                    print(self.picture.count)
-                    print(self.currentUsers.count)
+                    //print(self.picture.count)
+                    //print(self.currentUsers.count)
+                    
                     let row = self.cart.count - 1
                     let indexPath = IndexPath(row: row, section: 0)
                     self.tableView.insertRows(at: [indexPath], with: .top)
@@ -172,24 +170,31 @@ class UserTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: userCell, for: indexPath) as! UserTableViewCell
-        //let userName = currentUsers[indexPath.row]
+   
+        let userName = Array(cart.keys)[indexPath.row]
+        //self.userName = Array(cart.keys)[indexPath.row]
         
         
-        let userName2 = Array(cart.keys)[indexPath.row]
-        
-        cell.textLabel?.text = userName2
+        cell.textLabel?.text = userName
         cell.reloadInputViews()
         cell.setNeedsLayout()
         
-        let profilePic2 = cart[userName2]
+        let profilePic = cart[userName]
         
-        //let profilePic = picture[indexPath.row]
-        cell.imageHolder.image = profilePic2
+        cell.imageHolder.image = profilePic
         cell.contentView.bringSubview(toFront: cell.imageHolder)
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        performSegue(withIdentifier: "cellSegue", sender: cell)
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -239,10 +244,17 @@ class UserTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
+        if segue.identifier == "cellSegue" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let controller = segue.destination as! DateViewController
+                let userName = Array(cart.keys)[indexPath.row]
+                controller.datesName = userName
+            }
+        }
 
+    }
 }
