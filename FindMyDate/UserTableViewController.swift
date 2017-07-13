@@ -111,30 +111,6 @@ class UserTableViewController: UITableViewController {
             print(displayName)
         })
             
-        usersRef.observe(.childAdded, with: { snap in
-//            let snapValue = snap.value as? NSDictionary
-//            
-//            guard let uid = snapValue?["uid"] as? String else {return}
-//            let profilePicRef = self.storageRef.child(uid + "/profile_pic.jpg")
-//            // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-//            profilePicRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-//                if error != nil {
-//                    print("an error occurred when downloading profile picture from firebase storage")
-//                } else {
-//
-//                    let image = UIImage(data: data!)
-//                    self.picture.append(image!)
-//                    print(self.picture.count)
-//                    print(self.currentUsers.count)
-//                    let row = self.picture.count - 1
-//                    let indexPath = IndexPath(row: row, section: 0)
-//                    self.tableView.insertRows(at: [indexPath], with: .top)
-//
-//                    self.tableView.reloadData()
-//                }
-//            }
-        })
-            
         
         FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email, picture"]).start {
             (connection, result, err) in
@@ -195,6 +171,20 @@ class UserTableViewController: UITableViewController {
         performSegue(withIdentifier: "cellSegue", sender: cell)
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "cellSegue" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let controller = segue.destination as! DateViewController
+                let userName = Array(cart.keys)[indexPath.row]
+                controller.datesName = userName
+            }
+        }
+        
+    }
+
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -245,16 +235,4 @@ class UserTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
      */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "cellSegue" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let controller = segue.destination as! DateViewController
-                let userName = Array(cart.keys)[indexPath.row]
-                controller.datesName = userName
-            }
-        }
-
-    }
 }
