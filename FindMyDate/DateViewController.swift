@@ -10,30 +10,28 @@ import UIKit
 
 class DateViewController: UIViewController {
 
-    var datesName: String = ""
+    var datesName: String?
     
+
     @IBOutlet weak var location: UITextField!
     @IBOutlet weak var when: UITextField!
     @IBOutlet weak var dateeName: UILabel!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dateeName.text = datesName
-        print(datesName)
-        // Do any additional setup after loading the view.
         
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
+        rightSwipe.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(rightSwipe)
     }
-
-//    override func viewWillAppear(_: Bool) {
-//        //super.viewWillAppear(animated)
-//        dateeName.text = datesName
-//    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -45,4 +43,18 @@ class DateViewController: UIViewController {
     }
     */
 
+}
+
+
+extension UIViewController {
+    
+    func swipeAction(swipe:UISwipeGestureRecognizer) {
+        switch swipe.direction.rawValue {
+        case 2:
+            performSegue(withIdentifier: "swipeRight", sender: self)
+        default:
+            break
+        }
+    }
+    
 }

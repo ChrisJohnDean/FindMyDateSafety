@@ -91,9 +91,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Go Dating" id="Eqh-Hg-B7X"/>
-                    <connections>
-                        <segue destination="Nvw-4i-vXp" kind="show" identifier="cellSegue" id="IOu-Zh-W6l"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZnV-6A-ub7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -102,7 +99,7 @@
         <!--Date View Controller-->
         <scene sceneID="KQD-4c-gdY">
             <objects>
-                <viewController id="Nvw-4i-vXp" customClass="DateViewController" customModule="FindMyDate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DateViewController" id="Nvw-4i-vXp" customClass="DateViewController" customModule="FindMyDate" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FzD-OU-eSV"/>
                         <viewControllerLayoutGuide type="bottom" id="9F4-6K-bxd"/>
@@ -112,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Where" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8US-BY-xE0">
-                                <rect key="frame" x="45" y="153" width="51" height="21"/>
+                                <rect key="frame" x="45" y="174" width="51" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -126,7 +123,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="caz-JO-Eqg">
-                                <rect key="frame" x="112" y="148" width="97" height="30"/>
+                                <rect key="frame" x="112" y="169" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -139,25 +136,41 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ask them on a date!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDh-tu-aZl">
-                                <rect key="frame" x="81" y="93" width="155" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ask" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0kM-gV-cic">
+                                <rect key="frame" x="119" y="63" width="82" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="on a date!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Epc-yd-0dd">
+                                <rect key="frame" x="122" y="130" width="76" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Datee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDh-tu-aZl">
+                                <rect key="frame" x="44" y="101" width="233" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.90098896930000005" blue="0.94300148770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                     </view>
                     <connections>
                         <outlet property="dateeName" destination="UDh-tu-aZl" id="l5G-d7-h0q"/>
                         <outlet property="location" destination="caz-JO-Eqg" id="p6G-Yr-D4V"/>
                         <outlet property="when" destination="1y9-8L-HNA" id="i2b-QD-RcM"/>
+                        <segue destination="B9v-3H-Xu1" kind="show" identifier="swipeRight" id="fu2-WN-n2b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XhO-pZ-2tL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="412.5" y="-2350.3521126760565"/>
+            <point key="canvasLocation" x="232.5" y="-2350.3521126760565"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="n1L-eb-zR7">
@@ -227,4 +240,7 @@
             <point key="canvasLocation" x="-1526" y="-1626"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fu2-WN-n2b"/>
+    </inferredMetricsTieBreakers>
 </document>

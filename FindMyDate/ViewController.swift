@@ -50,16 +50,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             performSegue(withIdentifier: "loginSegue", sender: nil)
         }
         
-//        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email, picture"]).start {
-//            (connection, result, err) in
-//            
-//            if err != nil {
-//                print("Failed to start graph request", err ?? "")
-//                return
-//            }
-//            print(result ?? "")
-//            
-//        }
     }
 }
 

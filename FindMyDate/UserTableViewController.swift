@@ -108,7 +108,7 @@ class UserTableViewController: UITableViewController {
 
             
             
-            print(displayName)
+            //print(displayName)
         })
             
         
@@ -164,26 +164,38 @@ class UserTableViewController: UITableViewController {
         return cell
     }
 
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        
+//        performSegue(withIdentifier: "cellSegue", sender: cell)
+//    }
+
+    
+    // Override to perform segue from selected user cell to as the user on a date
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
+        let Storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let DvC = Storyboard.instantiateViewController(withIdentifier: "DateViewController") as! DateViewController
         
-        performSegue(withIdentifier: "cellSegue", sender: cell)
+        let userName = Array(cart.keys)[indexPath.row]
+        DvC.datesName = userName
+        self.navigationController?.pushViewController(DvC, animated: true)
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "cellSegue" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let controller = segue.destination as! DateViewController
-                let userName = Array(cart.keys)[indexPath.row]
-                controller.datesName = userName
-            }
-        }
-        
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        if segue.identifier == "cellSegue" {
+//            if let indexPath = self.tableView.indexPathForSelectedRow {
+//                let controller = segue.destination as! DateViewController
+//                let userName = Array(cart.keys)[indexPath.row]
+//                print(userName)
+//                controller.datesName = userName
+//                print(controller.datesName!)
+//            }
+//        }
+//        
+//    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
