@@ -22,6 +22,8 @@ class UserTableViewController: UITableViewController {
     //var userName: String!
     
     var currentUsers: [String] = []
+    var users : [FirebaseUser] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,24 +67,26 @@ class UserTableViewController: UITableViewController {
                                 print("error in downloading image")
                             }
                         }
-                        
-                        //self.uiimvProfilePic.image = UIImage(data:imageData)
-                        
                     }
-                    
                 }
             })
-            //currentUserRef.onDisconnectRemoveValue()
         }
         
         usersRef.observe(.childAdded, with: { snap in
             let snapValue = snap.value as? NSDictionary
             
-            guard let displayName = snapValue?["name"] as? String else {return}
-            self.currentUsers.append(displayName)
-
-            guard let uid = snapValue?["uid"] as? String else {return}
-            let profilePicRef = self.storageRef.child(uid + "/profile_pic.jpg")
+            guard let getDisplayName = snapValue?["name"] as? String else {return}
+            self.currentUsers.append(getDisplayName)
+            
+            guard let getProfileURL = snapValue?["profileURL"] as? String else {return}
+            let url = NSURL(string: getProfileURL)! as URL
+            guard let getEmail = snapValue?["email"] as? String else {return}
+            guard let getUid = snapValue?["uid"] as? String else {return}
+            let profilePicRef = self.storageRef.child(getUid + "/profile_pic.jpg")
+            
+            let user = FirebaseUser(uid: getUid, email: getEmail, name: getDisplayName, profileURL: url)
+            self.users.append(user)
+            
             // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
             profilePicRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                 if error != nil {
@@ -91,7 +95,7 @@ class UserTableViewController: UITableViewController {
                     
                     let image = UIImage(data: data!)
                     //self.picture.append(image!)
-                    self.cart[displayName] = image! 
+                    self.cart[getDisplayName] = image!
                     
                     // tests counts of collections
                     print(self.cart.count)
@@ -103,10 +107,6 @@ class UserTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 }
             }
-
-            
-            
-            //print(displayName)
         })
             
         
@@ -149,7 +149,7 @@ class UserTableViewController: UITableViewController {
    
         let userName = Array(cart.keys)[indexPath.row]
         //self.userName = Array(cart.keys)[indexPath.row]
-        
+        print(userName)
         
         cell.textLabel?.text = userName
         cell.reloadInputViews()
@@ -157,8 +157,8 @@ class UserTableViewController: UITableViewController {
         
         let profilePic = cart[userName]
         
-        cell.imageHolder.image = profilePic
-        cell.contentView.bringSubview(toFront: cell.imageHolder)
+        cell.picHolder.image = profilePic
+        cell.contentView.bringSubview(toFront: cell.picHolder)
         return cell
     }
 

@@ -10,7 +10,8 @@ import UIKit
 
 class UserTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var imageHolder: UIImageView!
+    
+    @IBOutlet weak var picHolder: UIImageView!
     
     var user: FirebaseUser!
     
