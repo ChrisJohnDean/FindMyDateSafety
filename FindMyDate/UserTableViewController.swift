@@ -91,12 +91,10 @@ class UserTableViewController: UITableViewController {
                     
                     let image = UIImage(data: data!)
                     //self.picture.append(image!)
-                    self.cart[displayName] = image!
+                    self.cart[displayName] = image! 
                     
                     // tests counts of collections
                     print(self.cart.count)
-                    //print(self.picture.count)
-                    //print(self.currentUsers.count)
                     
                     let row = self.cart.count - 1
                     let indexPath = IndexPath(row: row, section: 0)
@@ -176,6 +174,8 @@ class UserTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let Storyboard = UIStoryboard(name: "Main", bundle: nil)
         let DvC = Storyboard.instantiateViewController(withIdentifier: "DateViewController") as! DateViewController
+        
+        
         
         let userName = Array(cart.keys)[indexPath.row]
         DvC.datesName = userName

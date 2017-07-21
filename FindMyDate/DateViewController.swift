@@ -7,16 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 class DateViewController: UIViewController {
 
-    var datesName: String?
-    
-
     @IBOutlet weak var location: UITextField!
-    @IBOutlet weak var when: UITextField!
     @IBOutlet weak var dateeName: UILabel!
-    
+
+    var datesName: String?
+    let datesRef = Database.database().reference(withPath: "dates")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +32,19 @@ class DateViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func swipeAction(swipe:UISwipeGestureRecognizer) {
+        switch swipe.direction.rawValue {
+        case 2:
+            performSegue(withIdentifier: "swipeRight", sender: self)
+            //let place = location.text
+            //self.ref.child("users").child(user.uid).setValue(["username": username])
+            //datesRef.child("dates").child(
+        default:
+            break
+        }
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -46,15 +58,18 @@ class DateViewController: UIViewController {
 }
 
 
-extension UIViewController {
-    
-    func swipeAction(swipe:UISwipeGestureRecognizer) {
-        switch swipe.direction.rawValue {
-        case 2:
-            performSegue(withIdentifier: "swipeRight", sender: self)
-        default:
-            break
-        }
-    }
-    
-}
+//extension UIViewController {
+//    
+//    func swipeAction(swipe:UISwipeGestureRecognizer) {
+//        switch swipe.direction.rawValue {
+//        case 2:
+//            performSegue(withIdentifier: "swipeRight", sender: self)
+//            
+//            let place = self.DateViewController.location.text
+//            
+//        default:
+//            break
+//        }
+//    }
+//    
+//}
