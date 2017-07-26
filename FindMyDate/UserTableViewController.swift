@@ -17,11 +17,11 @@ class UserTableViewController: UITableViewController {
     let usersRef = Database.database().reference(withPath: "users")
     var user: FirebaseUser!
     let storageRef = Storage.storage().reference(forURL: "gs://findmydate-1c6f4.appspot.com/")
-    var picture:[UIImage] = []
-    var cart : Dictionary<String, UIImage> = Dictionary<String, UIImage>()
+    //var picture:[UIImage] = []
+    //var cart : Dictionary<String, UIImage> = Dictionary<String, UIImage>()
     //var userName: String!
     
-    var currentUsers: [String] = []
+    //var currentUsers: [String] = []
     var users : [FirebaseUser] = []
     
     
@@ -76,37 +76,44 @@ class UserTableViewController: UITableViewController {
             let snapValue = snap.value as? NSDictionary
             
             guard let getDisplayName = snapValue?["name"] as? String else {return}
-            self.currentUsers.append(getDisplayName)
+            //self.currentUsers.append(getDisplayName)
             
             guard let getProfileURL = snapValue?["profileURL"] as? String else {return}
             let url = NSURL(string: getProfileURL)! as URL
             guard let getEmail = snapValue?["email"] as? String else {return}
             guard let getUid = snapValue?["uid"] as? String else {return}
-            let profilePicRef = self.storageRef.child(getUid + "/profile_pic.jpg")
+            //let profilePicRef = self.storageRef.child(getUid + "/profile_pic.jpg")
             
             let user = FirebaseUser(uid: getUid, email: getEmail, name: getDisplayName, profileURL: url)
             self.users.append(user)
             
+            let row = self.users.count - 1
+            let indexPath = IndexPath(row: row, section: 0)
+            self.tableView.insertRows(at: [indexPath], with: .top)
+            
+            self.tableView.reloadData()
+
+            
             // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-            profilePicRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                if error != nil {
-                    print("an error occurred when downloading profile picture from firebase storage")
-                } else {
-                    
-                    let image = UIImage(data: data!)
-                    //self.picture.append(image!)
-                    self.cart[getDisplayName] = image!
-                    
-                    // tests counts of collections
-                    print(self.cart.count)
-                    
-                    let row = self.cart.count - 1
-                    let indexPath = IndexPath(row: row, section: 0)
-                    self.tableView.insertRows(at: [indexPath], with: .top)
-                    
-                    self.tableView.reloadData()
-                }
-            }
+//            profilePicRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//                if error != nil {
+//                    print("an error occurred when downloading profile picture from firebase storage")
+//                } else {
+//                    
+//                    let image = UIImage(data: data!)
+//                    //self.picture.append(image!)
+//                    self.cart[getDisplayName] = image!
+//                    
+//                    // tests counts of collections
+//                    print(self.cart.count)
+//                    
+//                    let row = self.cart.count - 1
+//                    let indexPath = IndexPath(row: row, section: 0)
+//                    self.tableView.insertRows(at: [indexPath], with: .top)
+//                    
+//                    self.tableView.reloadData()
+//                }
+//            }
         })
             
         
@@ -140,25 +147,30 @@ class UserTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cart.count
-    }
+        return users.count    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: userCell, for: indexPath) as! UserTableViewCell
-   
-        let userName = Array(cart.keys)[indexPath.row]
-        //self.userName = Array(cart.keys)[indexPath.row]
-        print(userName)
+
+        let user = users[indexPath.row]
         
-        cell.textLabel?.text = userName
+        cell.textLabel?.text = user.name
         cell.reloadInputViews()
         cell.setNeedsLayout()
         
-        let profilePic = cart[userName]
-        
-        cell.picHolder.image = profilePic
-        cell.contentView.bringSubview(toFront: cell.picHolder)
+        let profilePicRef = self.storageRef.child(user.uid + "/profile_pic.jpg")
+        profilePicRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                print("an error occurred when downloading profile picture from firebase storage")
+            } else {
+                let image = UIImage(data: data!)
+                cell.picHolder.image = image
+                cell.contentView.bringSubview(toFront: cell.picHolder)
+                
+                self.tableView.reloadData()
+            }
+        }
         return cell
     }
 
@@ -174,28 +186,9 @@ class UserTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let Storyboard = UIStoryboard(name: "Main", bundle: nil)
         let DvC = Storyboard.instantiateViewController(withIdentifier: "DateViewController") as! DateViewController
-        
-        
-        
-        let userName = Array(cart.keys)[indexPath.row]
-        DvC.datesName = userName
+        DvC.user = users[indexPath.row]
         self.navigationController?.pushViewController(DvC, animated: true)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//        if segue.identifier == "cellSegue" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow {
-//                let controller = segue.destination as! DateViewController
-//                let userName = Array(cart.keys)[indexPath.row]
-//                print(userName)
-//                controller.datesName = userName
-//                print(controller.datesName!)
-//            }
-//        }
-//        
-//    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
