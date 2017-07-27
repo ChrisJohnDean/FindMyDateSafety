@@ -150,7 +150,6 @@
                     <connections>
                         <outlet property="dateeName" destination="UDh-tu-aZl" id="l5G-d7-h0q"/>
                         <outlet property="location" destination="caz-JO-Eqg" id="p6G-Yr-D4V"/>
-                        <segue destination="B9v-3H-Xu1" kind="show" identifier="swipeRight" id="fu2-WN-n2b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XhO-pZ-2tL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -225,7 +224,4 @@
             <point key="canvasLocation" x="-1526" y="-1626"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="fu2-WN-n2b"/>
-    </inferredMetricsTieBreakers>
 </document>

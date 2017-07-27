@@ -30,10 +30,9 @@ class DateViewController: UIViewController {
         let userID = Auth.auth().currentUser?.uid
         usersRef.child(userID!).observeSingleEvent(of: .value, with: { snap in
             let value = snap.value as? NSDictionary
-            self.suitorsName = value?["username"] as? String ?? ""
+            self.suitorsName = value?["name"] as? String ?? ""
             self.suitorsUid = value?["uid"] as? String ?? ""
         })
-        print(suitorsUid)
         
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeAction))
         rightSwipe.direction = .right
@@ -64,8 +63,9 @@ class DateViewController: UIViewController {
             place = location.text
             print(place)
             print(suitorsUid)
-            self.datesRef.child((self.user?.uid)!).setValue(["location": place, "Suitor's Name": suitorsName, "Suitor's Uid": suitorsUid])
-            performSegue(withIdentifier: "swipeRight", sender: self)
+            print(suitorsName)
+            self.datesRef.child((self.user?.uid)!).child(suitorsUid).setValue(["location": place, "Suitor's Name": suitorsName, "Suitor's Uid": suitorsUid])
+            self.navigationController?.popViewController(animated: true)
         }
         else {
             return
