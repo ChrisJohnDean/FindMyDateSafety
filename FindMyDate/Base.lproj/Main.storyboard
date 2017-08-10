@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="kvo-kk-Oce">
             <objects>
-                <viewController id="H49-VO-xKC" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="H49-VO-xKC" customClass="ViewController" customModule="FindMyDate" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WSd-O2-hpL"/>
                         <viewControllerLayoutGuide type="bottom" id="Wt2-5b-Cqc"/>
@@ -70,11 +70,11 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nw0-8z-LQj" id="jB4-Lf-bXB">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-SD-zsm">
-                                            <rect key="frame" x="228.5" y="-1" width="91.5" height="90"/>
+                                            <rect key="frame" x="228" y="-1" width="91" height="89"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>
@@ -169,11 +169,11 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5sR-Ba-N29" id="3uN-fP-xkv">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NaG-NS-vQU">
-                                            <rect key="frame" x="227.5" y="-0.5" width="92" height="90"/>
+                                            <rect key="frame" x="226.5" y="-2" width="91.5" height="91"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>

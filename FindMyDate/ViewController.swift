@@ -20,7 +20,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         loginButton.frame = CGRect(x: 16, y: 250, width: view.frame.width - 32, height: 50)
-        //loginButton.delegate = self
+        loginButton.delegate = self
         loginButton.readPermissions = ["email", "public_profile"]
     }
 
