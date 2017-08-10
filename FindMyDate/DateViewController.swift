@@ -44,19 +44,6 @@ class DateViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//
-//    func swipeAction(swipe:UISwipeGestureRecognizer) -> Void {
-//        switch swipe.direction.rawValue {
-//        case 2:
-//            place = location.text
-//            print(place)
-//            print(suitorsUid)
-//            self.datesRef.child((self.user?.uid)!).setValue(["location": place, "Suitor's Name": suitorsName, "Suitor's Uid": suitorsUid])
-//            performSegue(withIdentifier: "swipeRight", sender: self)
-//        default:
-//            break
-//        }
-//    }
 
     func swipeAction(swipe: UISwipeGestureRecognizer) -> Void {
         if swipe.direction == UISwipeGestureRecognizerDirection.right {
@@ -85,18 +72,3 @@ class DateViewController: UIViewController {
 }
 
 
-//extension UIViewController {
-//    
-//    func swipeAction(swipe:UISwipeGestureRecognizer) {
-//        switch swipe.direction.rawValue {
-//        case 2:
-//            performSegue(withIdentifier: "swipeRight", sender: self)
-//            
-//            let place = self.DateViewController.location.text
-//            
-//        default:
-//            break
-//        }
-//    }
-//    
-//}

@@ -31,7 +31,7 @@ class UserTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        //self.navigationItem.rightBarButtonItem = self.editButtonItem
         Auth.auth().addStateDidChangeListener { auth, user in
             guard let user = user else { return }
             self.user = FirebaseUser(authData: user)
@@ -39,7 +39,7 @@ class UserTableViewController: UITableViewController {
             // Download facebook profile picture to Firebase Storage
             self.usersRef.child(self.user.uid).setValue(["name": self.user.name, "email": self.user.email,
                                                          "profileURL": self.user.profileURL.absoluteString, "uid": self.user.uid])
-            var profilePic = FBSDKGraphRequest(graphPath: "me/picture", parameters: ["height":300,"width":300,"redirect":false])
+            let profilePic = FBSDKGraphRequest(graphPath: "me/picture", parameters: ["height":300,"width":300,"redirect":false])
             profilePic?.start(completionHandler: {(connection, result, error) -> Void in
                 
                 if(error == nil)
@@ -170,7 +170,20 @@ class UserTableViewController: UITableViewController {
                 
                 self.tableView.reloadData()
             }
+            
+//            guard let imageData = data, error == nil else {
+//                print("an error occurred when retrieving data form storage")
+//                return
+//            }
+//            guard let image = UIImage(data: imageData) else {
+//                print("an error occurred when downloading profile picture from firebase storage")
+//                return
+//            }
+//            cell.picHolder.image = image
+//            cell.contentView.bringSubview(toFront: cell.picHolder)
+//            self.tableView.reloadData()
         }
+        
         return cell
     }
 
